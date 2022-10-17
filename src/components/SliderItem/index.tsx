@@ -7,12 +7,13 @@ interface SlideritemProps {
     poster_path: string;
     title: string;
     vote_average: string;
-  }
+  },
+  navigatePage: () => void
 }
 
-export function SliderItem({ data }: SlideritemProps) {
+export function SliderItem({ data, navigatePage }: SlideritemProps) {
   return (
-    <Container activeOpacity={ 0.7 }>
+    <Container activeOpacity={ 0.7 } onPress={ navigatePage }>
       <BannerItem
       source={{ uri: `https://image.tmdb.org/t/p/original/${ data.poster_path }` }}
       />
