@@ -24,6 +24,7 @@ export function Home() {
     const [popularMovies, setPopularMovies] = useState([]);
     const [topMovies, setTopMovies] = useState([]);
     const [bannerMovie, setBannerMovie] = useState<any>({});
+    const [input, setInput] = useState('');
 
     const [loading, setLoading] = useState(true);
 
@@ -57,9 +58,14 @@ export function Home() {
     }, []);
 
     function navigateDetailPage(item: any) {
-        navigation.navigate('Detail', {
-            id: item.id
-        });
+        navigation.navigate('Detail', { id: item.id });
+    }
+
+    function handleSearcMovie() {
+        if(!input) return;
+
+        navigation.navigate('Search', { name: input });
+        setInput('');
     }
 
     if(loading) 
@@ -69,15 +75,19 @@ export function Home() {
             </Container>
         );
     
-
     return (
         <Container>
             <Header title='React Prime' />
             
             <SearchContainer>
-                <Input placeholder='Ex Batman' placeholderTextColor='#DDD' />
+                <Input 
+                placeholder='Ex Batman' 
+                placeholderTextColor='#DDD' 
+                value={ input }
+                onChangeText={(text: string) => setInput(text)}
+                />
 
-                <SearchButton>
+                <SearchButton onPress={ handleSearcMovie }>
                     <Feather name='search' size={ 30 } color='#FFF' />
                 </SearchButton>
             </SearchContainer>

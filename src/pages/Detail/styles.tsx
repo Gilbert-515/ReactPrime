@@ -32,7 +32,7 @@ export const Banner = styled.Image`
 `;
 
 export const ButtonLink = styled.TouchableOpacity`
-  background-color: ${ ({ disabled }: any) => disabled ? '#e52f4a96' : '#E52F49' } ;
+  background-color: ${ ({ disabled }: ButtonLinkProps) => disabled ? '#e52f4a96' : '#E52F49' } ;
   width: 63px;
   height: 63px;
   border-radius: 35px;
@@ -64,7 +64,7 @@ export const Rate = styled.Text`
   font-size: 18px;
   color: #FFF;
   font-weight: bold;
-`;
+  `;
 
 export const ListGenres = styled.FlatList`
   padding-left: 14px;
@@ -77,4 +77,9 @@ export const Description = styled.Text`
   padding: 0 14px 30px 14px;
   color: #FFF;
   line-height: 20px;
-`;
+  `;
+
+  // types
+  interface ButtonLinkProps {
+    disabled: boolean;
+  }

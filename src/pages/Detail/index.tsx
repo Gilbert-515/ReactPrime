@@ -44,13 +44,13 @@ export function Detail() {
     
   }, []);
 
-  if(loading){
+  if(loading)
     return (
       <Container>
           <ActivityIndicator size={ 70 } style={{ marginTop: 50 }} color='#FFF'/>
       </Container>
-  );
-  }
+    );
+  
 
   return (
     <Container>
@@ -73,7 +73,11 @@ export function Detail() {
 
       <Banner
       resizeMethod='resize'
-      source={{ uri: `https://image.tmdb.org/t/p/original/${ movie.poster_path }` }}
+      source={
+        movie.poster_path ?
+        { uri: `https://image.tmdb.org/t/p/original/${ movie.poster_path }` } :
+        require('../../assets/movie_not_image.jpg')
+      }
       />
 
       <ButtonLink activeOpacity={ 0.7 } disabled={ !Boolean(movie.homepage) } onPress={() => setOpenLink(true)}>
@@ -113,7 +117,7 @@ export function Detail() {
         <Title>Descrição</Title>
 
         <Description>
-          { movie?.overview }
+          { movie?.overview ? movie?.overview : 'Filme sem descrição' }
         </Description>
       </ScrollView>
 
