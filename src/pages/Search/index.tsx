@@ -49,10 +49,10 @@ export function Search() {
   return (
     <Container>
       <ListMovies 
-      data={ movies }
-      showsVerticalScrollIndicator={ false }
-      keyExtractor={(item: any) => String(item.id)}
-      renderItem={ ({ item }: any) => <SearchItem data={ item } navigatePage={() => navigateDetailPage(item)}/> }
+        data={ movies }
+        showsVerticalScrollIndicator={ false }
+        keyExtractor={(item: any) => String(item.id)}
+        renderItem={ ({ item }: any) => <SearchItem data={ item } navigatePage={() => navigateDetailPage(item)}/> }
       />
     </Container>
   );

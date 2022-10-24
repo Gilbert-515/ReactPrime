@@ -17,6 +17,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { api } from '../../services/api';
 import { ActivityIndicator, ScrollView, Modal } from 'react-native';
 import { Genres, ModalLink } from '../../components';
+import { deleteMovie, hasMovie, saveMovie } from '../../utils/storage';
 
 export function Detail() {
   const navigation = useNavigation();
@@ -24,6 +25,7 @@ export function Detail() {
 
   const [movie, setMovie] = useState<any>();
   const [openLink, setOpenLink] = useState(false);
+  const [isFavoriteMovie, setIsFavoriteMovie] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -34,15 +36,30 @@ export function Detail() {
 
       if(isActive){ 
         setMovie(response.data);
+
+        const isFavorite = await hasMovie(response.data);
+        setIsFavoriteMovie(isFavorite);
+
         setLoading(false);
       }
     }
 
     if(isActive) getMovie();
     
-    return () => { isActive = false; }
+    return () => { isActive = false }
     
   }, []);
+
+  async function favoriteMovie(movie : any) {
+    if(isFavoriteMovie) {
+      await deleteMovie(movie.id);
+      setIsFavoriteMovie(false);
+    }
+    else {
+      await saveMovie('@primereact', movie);
+      setIsFavoriteMovie(true);
+    }
+  }
 
   if(loading)
     return (
@@ -51,40 +68,48 @@ export function Detail() {
       </Container>
     );
   
-
   return (
     <Container>
       <Header>
         <HeaderButton activeOpacity={ 0.7 } onPress={() => navigation.goBack()}>
           <Feather
-          name='arrow-left'
-          size={ 28 }
-          color='#FFF'
+            name='arrow-left'
+            size={ 28 }
+            color='#FFF'
           />
         </HeaderButton>
-        <HeaderButton activeOpacity={ 0.7 }>
+
+        <HeaderButton activeOpacity={ 0.7 } onPress={() => favoriteMovie(movie)}>
+          { isFavoriteMovie ? 
           <Ionicons
-          name='bookmark'
-          size={ 28 }
-          color='#FFF'
+            name='bookmark'
+            size={ 28 }
+            color='#FFF'
+          /> 
+          :
+          <Ionicons
+            name='bookmark-outline'
+            size={ 28 }
+            color='#FFF'
           />
+        }
         </HeaderButton>
       </Header>
 
       <Banner
-      resizeMethod='resize'
-      source={
-        movie.poster_path ?
-        { uri: `https://image.tmdb.org/t/p/original/${ movie.poster_path }` } :
-        require('../../assets/movie_not_image.jpg')
-      }
+        resizeMethod='resize'
+        source={
+          movie.poster_path ?
+          { uri: `https://image.tmdb.org/t/p/original/${ movie.poster_path }` } :
+          require('../../assets/movie_not_image.jpg')
+        }
       />
 
       <ButtonLink activeOpacity={ 0.7 } disabled={ !Boolean(movie.homepage) } onPress={() => setOpenLink(true)}>
         <Feather
-        name='link'
-        size={ 24 }
-        color='#FFF'
+          name='link'
+          size={ 24 }
+          color='#FFF'
         />
       </ButtonLink>
 
@@ -105,12 +130,12 @@ export function Detail() {
       </ContentArea>
 
       <ListGenres
-      style={{ marginTop: 15 }}
-      data={ movie?.genres }
-      horizontal={ true }
-      showsHorizontalScrollIndicator={ false }
-      keyExtractor={(item: any) => String(item.id)}
-      renderItem={({ item }: any) => <Genres name={ item.name }/>}
+        style={{ marginTop: 15 }}
+        data={ movie?.genres }
+        horizontal={ true }
+        showsHorizontalScrollIndicator={ false }
+        keyExtractor={(item: any) => String(item.id)}
+        renderItem={({ item }: any) => <Genres name={ item.name }/>}
       />
 
       <ScrollView showsVerticalScrollIndicator={ false }>
@@ -123,9 +148,9 @@ export function Detail() {
 
       <Modal style={{ backgroundColor: '#DDD' }} animationType='slide' transparent visible={ openLink }>
         <ModalLink 
-        link={ movie?.homepage }
-        title={ movie?.title }
-        closeModal={() => setOpenLink(false)}
+          link={ movie?.homepage }
+          title={ movie?.title }
+          closeModal={() => setOpenLink(false)}
         />
       </Modal>
 

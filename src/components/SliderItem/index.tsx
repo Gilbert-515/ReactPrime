@@ -15,7 +15,7 @@ export function SliderItem({ data, navigatePage }: SlideritemProps) {
   return (
     <Container activeOpacity={ 0.7 } onPress={ navigatePage }>
       <BannerItem
-      source={{ uri: `https://image.tmdb.org/t/p/original/${ data.poster_path }` }}
+        source={{ uri: `https://image.tmdb.org/t/p/original/${ data.poster_path }` }}
       />
 
       <Title numberOfLines={ 1 }>{ data.title }</Title>

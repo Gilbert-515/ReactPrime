@@ -26,12 +26,12 @@ export function SearchItem({ data, navigatePage }: SearchItemProps) {
   return (
     <Container activeOpacity={ 0.7 } onPress={ detailMovie }>
       <Banner 
-      resizeMethod='resize'
-      source={ 
-        data?.poster_path ?
-        { uri: `https://image.tmdb.org/t/p/original/${ data.poster_path }` } :
-        require('../../assets/movie_not_image.jpg') 
-      }
+        resizeMethod='resize'
+        source={ 
+          data?.poster_path ?
+          { uri: `https://image.tmdb.org/t/p/original/${ data.poster_path }` } :
+          require('../../assets/movie_not_image.jpg') 
+        }
       />
 
       <Title numberOfLines={ 1 }>{ data?.title }</Title>

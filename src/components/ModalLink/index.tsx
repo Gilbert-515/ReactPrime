@@ -18,7 +18,7 @@ export function ModalLink({ link, title, closeModal  }: ModalLinkProps) {
       </BackButton>
       
       <WebView
-      source={{ uri: link }}
+        source={{ uri: link }}
       />
     </>
   );

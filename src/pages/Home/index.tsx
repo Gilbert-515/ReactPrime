@@ -81,10 +81,10 @@ export function Home() {
             
             <SearchContainer>
                 <Input 
-                placeholder='Ex Batman' 
-                placeholderTextColor='#DDD' 
-                value={ input }
-                onChangeText={(text: string) => setInput(text)}
+                  placeholder='Ex Batman' 
+                  placeholderTextColor='#DDD' 
+                  value={ input }
+                  onChangeText={(text: string) => setInput(text)}
                 />
 
                 <SearchButton onPress={ handleSearcMovie }>
@@ -97,37 +97,37 @@ export function Home() {
 
                 <BannerButton activeOpacity={ 0.9 } onPress={() => navigateDetailPage(bannerMovie)}>
                     <Banner 
-                    resizeMethod='resize'
-                    source={{ uri: `https://image.tmdb.org/t/p/original/${ bannerMovie.poster_path }`}} 
+                      resizeMethod='resize'
+                      source={{ uri: `https://image.tmdb.org/t/p/original/${ bannerMovie.poster_path }`}} 
                     />
                 </BannerButton>
 
                 <SliderMovie
-                horizontal={ true }
-                showsHorizontalScrollIndicator={ false }
-                data={ nowMovies }
-                renderItem={({ item }: any) => <SliderItem data={ item } navigatePage={ () => navigateDetailPage(item) } /> }
-                keyExtractor={ (item: any) => String(item.id) }
+                  horizontal={ true }
+                  showsHorizontalScrollIndicator={ false }
+                  data={ nowMovies }
+                  renderItem={({ item }: any) => <SliderItem data={ item } navigatePage={ () => navigateDetailPage(item) } /> }
+                  keyExtractor={ (item: any) => String(item.id) }
                 />
 
                 <Title>Populares</Title>
 
                 <SliderMovie
-                horizontal={ true }
-                showsHorizontalScrollIndicator={ false }
-                data={ popularMovies }
-                renderItem={({ item }: any) => <SliderItem data={ item } navigatePage={ () => navigateDetailPage(item) } /> }
-                keyExtractor={ (item: any) => String(item.id) }
+                  horizontal={ true }
+                  showsHorizontalScrollIndicator={ false }
+                  data={ popularMovies }
+                  renderItem={({ item }: any) => <SliderItem data={ item } navigatePage={ () => navigateDetailPage(item) } /> }
+                  keyExtractor={ (item: any) => String(item.id) }
                 />
 
                 <Title>Mais Votados</Title>
 
                 <SliderMovie
-                horizontal={ true }
-                showsHorizontalScrollIndicator={ false }
-                data={ topMovies }
-                renderItem={({ item }: any) => <SliderItem data={ item } navigatePage={ () => navigateDetailPage(item) } /> }
-                keyExtractor={ (item: any) => String(item.id) }
+                  horizontal={ true }
+                  showsHorizontalScrollIndicator={ false }
+                  data={ topMovies }
+                  renderItem={({ item }: any) => <SliderItem data={ item } navigatePage={ () => navigateDetailPage(item) } /> }
+                  keyExtractor={ (item: any) => String(item.id) }
                 />
             </ScrollView>
         </Container>
