@@ -24,7 +24,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.gilbert009.reactPrime"
     },
     "web": {
       "favicon": "./assets/favicon.png"
